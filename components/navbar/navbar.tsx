@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Dialog, DialogPanel } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars2Icon, CpuChipIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import { MAIN_NAVIGATION } from "@/global-constants";
 
@@ -12,7 +12,7 @@ import Logo from "@/components/logo";
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   return (
-    <header className="fixed inset-x-0 top-0 z-50 font-sans">
+    <header className="fixed inset-x-0 top-0 z-50 font-sans backdrop-blur-sm">
       <nav
         aria-label="Global"
         className="flex items-center justify-between p-6 lg:px-8"
@@ -20,10 +20,10 @@ export default function Navbar() {
         <div className="flex lg:flex-1">
           <Link
             href="#hero"
-            className="-m-1.5 p-1.5 flex items-center gap-1 tracking-wide text-2xl"
+            className="-m-1.5 p-1.5 flex items-center gap-1 tracking-wide text-2xl text-gray-900 dark:text-white"
           >
             <span className="sr-only">Realitize</span>
-            <Logo />
+            <CpuChipIcon className="size-8" strokeWidth={1.2} />
             <span>
               <b>REAL</b>ITIZE
             </span>
@@ -36,7 +36,7 @@ export default function Navbar() {
             className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-200"
           >
             <span className="sr-only">Open main menu</span>
-            <Bars3Icon aria-hidden="true" className="size-6" />
+            <Bars2Icon aria-hidden="true" className="size-8" />
           </button>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">

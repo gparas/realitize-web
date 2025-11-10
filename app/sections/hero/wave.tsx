@@ -13,30 +13,40 @@ const Wave: React.FC = () => {
     // --- CONFIGURABLE CONSTANTS ---------------------------
 
     // VISUALS & DENSITY
-    const PARTICLE_COUNT = 1000; // Total number of particles (25 * 25 = 625)
-    const GRID_SIZE = 18; // World unit size of the particle grid (e.g., 18x18)
-    const DOT_SIZE = 0.05; // Visual size of each individual particle
+    const PARTICLE_COUNT = 1500;
+    const GRID_SIZE = 18;
+    const DOT_SIZE = 0.05;
 
     // CAMERA & PERSPECTIVE
-    const CAMERA_Y_POS = 3; // Camera height (Y-axis). Lower values = more dramatic floor perspective.
-    const CAMERA_Z_POS = 13; // Camera distance (Z-axis). Higher values = wider field of view.
+    const CAMERA_Y_POS = 2.5;
+    const CAMERA_Z_POS = 12.5;
 
-    // WAVE CHARACTERISTICS (Adjust these to change wave shape and speed)
-    const WAVE_AMPLITUDE = 0.15; // Overall maximum vertical displacement of the wave.
-    const WAVE_SPEED = 2.0; // Base speed of the primary wave pattern.
-    const WAVE_DENSITY_X = 0.7; // Spatial frequency (tightness) along the X-axis.
-    const WAVE_DENSITY_Z = 0.5; // Spatial frequency (tightness) along the Z-axis (depth).
-
-    // Set to 0.0 for a perfectly simple, single sine wave. Increase for more ripple/complexity.
+    // WAVE CHARACTERISTICS
+    const WAVE_AMPLITUDE = 0.15;
+    const WAVE_SPEED = 2.0;
+    const WAVE_DENSITY_X = 0.7;
+    const WAVE_DENSITY_Z = 0.3;
     const WAVE_SCALE_FACTOR = 0.2;
 
-    // GENTLE ROTATION (Set to 0 to disable slow, ambient rotation)
-    const ROTATION_SPEED_Z = 0.05; // Slow rotation speed around the Z-axis (screen depth).
-    const ROTATION_SPEED_X = 0.02; // Slow rotation speed around the X-axis (forward/backward tilt).
+    // AMBIENT ROTATION
+    const ROTATION_SPEED_Z = 0.05;
+    const ROTATION_SPEED_X = 0.02;
 
+    // (Optional) Gaussian bump (additive)
+    const ENABLE_BUMP = false;
+    const BUMP_STRENGTH = 0.25;
+    const BUMP_RADIUS = 1.6;
+    const BUMP_EASE = 0.12;
+
+    // --- SPHERICAL *DENT* (inverse of dome) ---
+    const ENABLE_SPHERE_DENT = true;
+    const DENT_RADIUS = 2.5; // area of influence
+    const DENT_DEPTH = 0.9; // how deep the center dips below y=0
+    const DENT_STRENGTH = 0.95; // 0..1 blend toward the sphere
+    const DENT_EASE = 0.12; // ease in/out speed
     // ------------------------------------------------------
 
-    // --- 1. SCENE AND RENDERER SETUP ---
+    // --- 1. SCENE & RENDERER ---
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       80,
@@ -44,20 +54,14 @@ const Wave: React.FC = () => {
       0.1,
       1000
     );
-    const renderer = new THREE.WebGLRenderer({
-      alpha: true,
-      antialias: true,
-    });
-
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setClearColor(0x000000, 0);
     container.appendChild(renderer.domElement);
 
-    // --- 2. PARTICLE GEOMETRY (X-Z Plane) ---
+    // --- 2. PARTICLE GEOMETRY ---
     const positions = new Float32Array(PARTICLE_COUNT * 3);
     const originalPositions = new Float32Array(PARTICLE_COUNT * 3);
-
-    // Grid layout
     const gridResolution = Math.sqrt(PARTICLE_COUNT);
 
     for (let i = 0; i < PARTICLE_COUNT; i++) {
@@ -65,23 +69,18 @@ const Wave: React.FC = () => {
       const row = Math.floor(i / gridResolution);
       const col = i % gridResolution;
 
-      // X: Horizontal position (X-axis)
       const x = (col / gridResolution - 0.5) * GRID_SIZE;
-
-      // Z: Depth position (Z-axis) - This forms the "floor" plane with X
       const z = (row / gridResolution - 0.5) * GRID_SIZE;
 
-      // Y is the elevation/height and starts at 0
       positions[i3] = x;
-      positions[i3 + 1] = 0; // Y
+      positions[i3 + 1] = 0;
       positions[i3 + 2] = z;
 
       originalPositions[i3] = x;
-      originalPositions[i3 + 1] = 0; // Y
+      originalPositions[i3 + 1] = 0;
       originalPositions[i3 + 2] = z;
     }
 
-    // Geometry
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
     geometry.setAttribute(
@@ -89,10 +88,9 @@ const Wave: React.FC = () => {
       new THREE.BufferAttribute(originalPositions, 3)
     );
 
-    // Simple points material
     const material = new THREE.PointsMaterial({
       color: 0x7c86ff,
-      size: DOT_SIZE, // Use DOT_SIZE constant
+      size: DOT_SIZE,
       transparent: true,
       opacity: 0.8,
       sizeAttenuation: true,
@@ -101,73 +99,171 @@ const Wave: React.FC = () => {
     const particles = new THREE.Points(geometry, material);
     scene.add(particles);
 
-    // --- 3. CAMERA PERSPECTIVE (Low Angle) ---
-    // Use CAMERA constants
+    // --- 3. CAMERA ---
     camera.position.set(0, CAMERA_Y_POS, CAMERA_Z_POS);
     camera.lookAt(0, 0, 0);
 
-    // --- 4. ANIMATION ---
+    // --- 4. INTERACTION (mouse -> XZ plane) ---
+    const raycaster = new THREE.Raycaster();
+    const mouseNDC = new THREE.Vector2();
+    const groundPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0); // y=0
+    const mouseWorld = new THREE.Vector3();
+    let hasHover = false;
+    let bumpMix = 0;
+    let dentMix = 0;
+
+    const updateMouse = (clientX: number, clientY: number) => {
+      const rect = container.getBoundingClientRect();
+      const x = ((clientX - rect.left) / rect.width) * 2 - 1;
+      const y = -((clientY - rect.top) / rect.height) * 2 + 1;
+      mouseNDC.set(x, y);
+      raycaster.setFromCamera(mouseNDC, camera);
+      raycaster.ray.intersectPlane(groundPlane, mouseWorld);
+    };
+
+    const onPointerMove = (e: PointerEvent) => {
+      hasHover = true;
+      updateMouse(e.clientX, e.clientY);
+    };
+    const onPointerEnter = (e: PointerEvent) => {
+      hasHover = true;
+      updateMouse(e.clientX, e.clientY);
+    };
+    const onPointerLeave = () => {
+      hasHover = false;
+    };
+
+    container.addEventListener("pointermove", onPointerMove);
+    container.addEventListener("pointerenter", onPointerEnter);
+    container.addEventListener("pointerleave", onPointerLeave);
+
+    // Touch
+    const onTouch = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        hasHover = true;
+        const t = e.touches[0];
+        updateMouse(t.clientX, t.clientY);
+      }
+    };
+    const onTouchEnd = () => {
+      hasHover = false;
+    };
+    container.addEventListener("touchstart", onTouch, { passive: true });
+    container.addEventListener("touchmove", onTouch, { passive: true });
+    container.addEventListener("touchend", onTouchEnd);
+
+    // --- 5. ANIMATION ---
     const clock = new THREE.Clock();
-    const positionAttribute = geometry.getAttribute("position");
-    const originalPositionAttribute = geometry.getAttribute("originalPosition");
+    const posAttr = geometry.getAttribute("position") as THREE.BufferAttribute;
+    const origAttr = geometry.getAttribute(
+      "originalPosition"
+    ) as THREE.BufferAttribute;
+
+    // Bump precompute
+    const twoSigmaSq = 2 * BUMP_RADIUS * BUMP_RADIUS;
+
+    // For the dent, we want the *lower* hemisphere:
+    // Put the sphere center slightly ABOVE the plane so y at center = -DENT_DEPTH.
+    // y_at_center = cy - R = -DENT_DEPTH  =>  cy = R - DENT_DEPTH
+    const sphereRadius = DENT_RADIUS;
+    const sphereCenterY = sphereRadius - DENT_DEPTH;
+
+    const smoothstep = (e0: number, e1: number, x: number) => {
+      const t = Math.min(Math.max((x - e0) / (e1 - e0), 0), 1);
+      return t * t * (3 - 2 * t);
+    };
 
     const animate = () => {
       requestAnimationFrame(animate);
+      const t = clock.getElapsedTime();
 
-      const elapsedTime = clock.getElapsedTime();
+      const target = hasHover ? 1 : 0;
+      if (ENABLE_BUMP) bumpMix += (target - bumpMix) * BUMP_EASE;
+      if (ENABLE_SPHERE_DENT) dentMix += (target - dentMix) * DENT_EASE;
 
-      // Animate particles with wave pattern
       for (let i = 0; i < PARTICLE_COUNT; i++) {
-        const x = originalPositionAttribute.getX(i);
-        const z = originalPositionAttribute.getZ(i);
+        const x = origAttr.getX(i);
+        const z = origAttr.getZ(i);
 
-        // Primary simple sine wave
-        let wave =
-          Math.sin(
-            x * WAVE_DENSITY_X + z * WAVE_DENSITY_Z + elapsedTime * WAVE_SPEED
-          ) * 1.5;
+        // Base wave
+        let y =
+          Math.sin(x * WAVE_DENSITY_X + z * WAVE_DENSITY_Z + t * WAVE_SPEED) *
+          1.5 *
+          WAVE_AMPLITUDE;
 
-        // Add secondary, complex layers if WAVE_SCALE_FACTOR > 0
         if (WAVE_SCALE_FACTOR > 0) {
-          wave +=
-            Math.sin(x * 1.3 - z * 0.9 + elapsedTime * 1.3) * WAVE_SCALE_FACTOR;
-          wave +=
-            Math.sin(x * 2.1 + z * 1.7 + elapsedTime * 0.7) *
-            (WAVE_SCALE_FACTOR / 2);
+          y +=
+            Math.sin(x * 1.3 - z * 0.9 + t * 1.3) *
+            WAVE_SCALE_FACTOR *
+            WAVE_AMPLITUDE;
+          y +=
+            Math.sin(x * 2.1 + z * 1.7 + t * 0.7) *
+            (WAVE_SCALE_FACTOR / 2) *
+            WAVE_AMPLITUDE;
         }
 
-        const elevation = wave * WAVE_AMPLITUDE; // Use WAVE_AMPLITUDE constant
+        if (Number.isFinite(mouseWorld.x) && Number.isFinite(mouseWorld.z)) {
+          const dx = x - mouseWorld.x;
+          const dz = z - mouseWorld.z;
+          const dist2 = dx * dx + dz * dz;
+          const dist = Math.sqrt(dist2);
 
-        // Set the Y component (height) for the wave effect
-        positionAttribute.setY(i, elevation);
+          // Optional Gaussian bump (upwards)
+          if (ENABLE_BUMP && bumpMix > 0.001) {
+            const infl = Math.exp(-dist2 / twoSigmaSq);
+            y += BUMP_STRENGTH * bumpMix * infl;
+          }
+
+          // Spherical dent (concave)
+          if (ENABLE_SPHERE_DENT && dentMix > 0.001 && dist < sphereRadius) {
+            // Lower hemisphere surface: y_sphere = cy - sqrt(R^2 - r^2)
+            const inside = sphereRadius * sphereRadius - dist2;
+            if (inside > 0) {
+              const ySphere = sphereCenterY - Math.sqrt(inside);
+
+              // Edge falloff so it blends into the plane/wave
+              const edge = smoothstep(sphereRadius, 0, dist); // 1 at center -> 0 at edge
+              const influence = edge * DENT_STRENGTH * dentMix;
+
+              y = THREE.MathUtils.lerp(y, ySphere, influence);
+            }
+          }
+        }
+
+        posAttr.setY(i, y);
       }
 
-      positionAttribute.needsUpdate = true;
+      posAttr.needsUpdate = true;
 
-      // Gentle rotation
-      particles.rotation.z = Math.sin(elapsedTime * ROTATION_SPEED_Z) * 0.1; // Use ROTATION_SPEED_Z
-      particles.rotation.x = Math.sin(elapsedTime * ROTATION_SPEED_X) * 0.05; // Use ROTATION_SPEED_X
+      // Ambient rotation
+      const elapsed = t;
+      particles.rotation.z = Math.sin(elapsed * ROTATION_SPEED_Z) * 0.1;
+      particles.rotation.x = Math.sin(elapsed * ROTATION_SPEED_X) * 0.05;
 
       renderer.render(scene, camera);
     };
 
     animate();
 
-    // --- 5. RESIZE HANDLER ---
+    // --- 6. RESIZE ---
     const handleResize = () => {
       camera.aspect = container.clientWidth / container.clientHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(container.clientWidth, container.clientHeight);
     };
-
     window.addEventListener("resize", handleResize);
 
-    // --- 6. CLEANUP ---
+    // --- 7. CLEANUP ---
     return () => {
       window.removeEventListener("resize", handleResize);
-      if (container && renderer.domElement) {
+      container.removeEventListener("pointermove", onPointerMove);
+      container.removeEventListener("pointerenter", onPointerEnter);
+      container.removeEventListener("pointerleave", onPointerLeave);
+      container.removeEventListener("touchstart", onTouch);
+      container.removeEventListener("touchmove", onTouch);
+      container.removeEventListener("touchend", onTouchEnd);
+      if (container && renderer.domElement)
         container.removeChild(renderer.domElement);
-      }
       geometry.dispose();
       material.dispose();
       renderer.dispose();
@@ -183,7 +279,7 @@ const Wave: React.FC = () => {
         position: "absolute",
         top: 190,
         left: 0,
-        zIndex: -1,
+        zIndex: 1,
       }}
     />
   );
