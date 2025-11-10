@@ -11,6 +11,7 @@ export default function CodeBlock() {
   return (
     <div className="relative isolate overflow-hidden bg-indigo-500 px-6 pt-8 sm:mx-auto sm:max-w-2xl sm:rounded-3xl sm:pt-16 sm:pr-0 sm:pl-16 lg:mx-0 lg:max-w-none">
       <div
+        role="presentation"
         aria-hidden="true"
         className="absolute -inset-y-px -left-3 -z-10 w-full origin-bottom-left skew-x-[-30deg] bg-indigo-100 opacity-20 ring-1 ring-white ring-inset"
       />
@@ -33,6 +34,8 @@ export default function CodeBlock() {
               ref={ref}
               play={isInView}
               style={{ tabSize: 2 }}
+              role="presentation"
+              aria-hidden="true"
               className="text-gray-300"
             >
               {CODE_DEMO}
@@ -41,6 +44,7 @@ export default function CodeBlock() {
         </div>
       </div>
       <div
+        role="presentation"
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 ring-1 ring-black/10 ring-inset sm:rounded-3xl dark:ring-white/10"
       />
