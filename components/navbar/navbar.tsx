@@ -18,9 +18,15 @@ export default function Navbar() {
         className="flex items-center justify-between p-6 lg:px-8"
       >
         <div className="flex lg:flex-1">
-          <Link href="#hero" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
+          <Link
+            href="#hero"
+            className="-m-1.5 p-1.5 flex items-center gap-1 tracking-wide text-2xl"
+          >
+            <span className="sr-only">Realitize</span>
             <Logo />
+            <span>
+              <b>REAL</b>ITIZE
+            </span>
           </Link>
         </div>
         <div className="flex lg:hidden">

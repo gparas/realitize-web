@@ -2,10 +2,14 @@ import Navbar from "@/components/navbar";
 
 import Pattern from "./pattern";
 import Flare from "./flare";
+import WaveBackground from "./WaveBackground";
 
 export default function HeroSection() {
   return (
-    <div id="hero" className="bg-white font-sans dark:bg-gray-900">
+    <div
+      id="hero"
+      className="bg-white font-sans dark:bg-gray-900 h-screen overflow-hidden"
+    >
       <Navbar />
       <div className="relative isolate px-6 pt-14 lg:px-8">
         <Pattern />
@@ -18,7 +22,7 @@ export default function HeroSection() {
           </div>
           <div className="text-center">
             <h1 className="text-5xl font-semibold tracking-tight text-balance text-gray-900 sm:text-7xl dark:text-white">
-              You lead. Intelligence aligns.
+              You Lead. Intelligence Aligns.
             </h1>
             <p className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8 dark:text-gray-400">
               We create custom AI systems that are private, secure, and designed
@@ -26,6 +30,7 @@ export default function HeroSection() {
             </p>
           </div>
         </div>
+        <WaveBackground />
       </div>
     </div>
   );
