@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-const SimpleParticleWave: React.FC = () => {
+const Wave: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -189,4 +189,4 @@ const SimpleParticleWave: React.FC = () => {
   );
 };
 
-export default SimpleParticleWave;
+export default Wave;

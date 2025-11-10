@@ -23,12 +23,16 @@ export default function AboutUsSection() {
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
           <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
             {FEATURES.map((feature) => (
-              <div key={feature.name} className="flex flex-col">
-                <dt className="flex items-center gap-x-3 text-base/7 font-semibold text-gray-900 dark:text-white">
-                  <feature.icon
-                    aria-hidden="true"
-                    className="size-5 flex-none text-indigo-600 dark:text-indigo-400"
-                  />
+              <div
+                key={feature.name}
+                className="flex flex-col rounded-2xl bg-gray-50 p-8 text-sm/6 dark:bg-white/2.5"
+              >
+                <feature.icon
+                  aria-hidden="true"
+                  strokeWidth={1.2}
+                  className="size-10 flex-none text-indigo-600 dark:text-indigo-400 mb-10"
+                />
+                <dt className="text-xl font-semibold text-gray-900 dark:text-white">
                   {feature.name}
                 </dt>
                 <dd className="mt-4 flex flex-auto flex-col text-base/7 text-gray-600 dark:text-gray-400">
