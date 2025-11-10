@@ -10,6 +10,11 @@ const Wave: React.FC = () => {
     const container = mountRef.current;
     if (!container) return;
 
+    // Cache container dimensions to avoid forced reflows
+    let cachedRect = container.getBoundingClientRect();
+    let cachedWidth = container.clientWidth;
+    let cachedHeight = container.clientHeight;
+
     // --- CONFIGURABLE CONSTANTS ---------------------------
 
     // VISUALS & DENSITY
@@ -50,12 +55,12 @@ const Wave: React.FC = () => {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       80,
-      container.clientWidth / container.clientHeight,
+      cachedWidth / cachedHeight,
       0.1,
       1000
     );
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setSize(cachedWidth, cachedHeight);
     renderer.setClearColor(0x000000, 0);
     container.appendChild(renderer.domElement);
 
@@ -113,9 +118,8 @@ const Wave: React.FC = () => {
     let dentMix = 0;
 
     const updateMouse = (clientX: number, clientY: number) => {
-      const rect = container.getBoundingClientRect();
-      const x = ((clientX - rect.left) / rect.width) * 2 - 1;
-      const y = -((clientY - rect.top) / rect.height) * 2 + 1;
+      const x = ((clientX - cachedRect.left) / cachedRect.width) * 2 - 1;
+      const y = -((clientY - cachedRect.top) / cachedRect.height) * 2 + 1;
       mouseNDC.set(x, y);
       raycaster.setFromCamera(mouseNDC, camera);
       raycaster.ray.intersectPlane(groundPlane, mouseWorld);
@@ -247,14 +251,27 @@ const Wave: React.FC = () => {
 
     // --- 6. RESIZE ---
     const handleResize = () => {
-      camera.aspect = container.clientWidth / container.clientHeight;
+      cachedWidth = container.clientWidth;
+      cachedHeight = container.clientHeight;
+      cachedRect = container.getBoundingClientRect();
+
+      camera.aspect = cachedWidth / cachedHeight;
       camera.updateProjectionMatrix();
-      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setSize(cachedWidth, cachedHeight);
     };
+
+    // Use ResizeObserver for better performance
+    const resizeObserver = new ResizeObserver(() => {
+      handleResize();
+    });
+    resizeObserver.observe(container);
+
+    // Fallback for window resize
     window.addEventListener("resize", handleResize);
 
     // --- 7. CLEANUP ---
     return () => {
+      resizeObserver.disconnect();
       window.removeEventListener("resize", handleResize);
       container.removeEventListener("pointermove", onPointerMove);
       container.removeEventListener("pointerenter", onPointerEnter);
