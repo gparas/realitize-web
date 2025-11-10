@@ -2,7 +2,6 @@ import Navbar from "@/components/navbar";
 
 import Pattern from "./pattern";
 import Flare from "./flare";
-import Reorder from "./reorder";
 
 export default function HeroSection() {
   return (
@@ -26,7 +25,6 @@ export default function HeroSection() {
               for measurable outcomes tailored to your enterprise operations.
             </p>
           </div>
-          <Reorder />
         </div>
       </div>
     </div>

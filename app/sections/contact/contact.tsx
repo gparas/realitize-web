@@ -6,7 +6,10 @@ import {
 
 export default function ContactSection() {
   return (
-    <div className="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8 dark:bg-gray-900">
+    <div
+      id="contact"
+      className="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8 dark:bg-gray-900"
+    >
       <div className="mx-auto max-w-xl lg:max-w-5xl">
         <div className="mt-16 flex flex-col gap-16 sm:gap-y-20 lg:flex-row">
           <div className="lg:mt-6 lg:w-80 lg:flex-auto">
