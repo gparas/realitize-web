@@ -8,7 +8,7 @@ export default function HeroSection() {
   return (
     <div
       id="hero"
-      className="bg-white font-sans dark:bg-gray-900 h-screen overflow-hidden"
+      className="h-screen overflow-hidden bg-white font-sans dark:bg-gray-900"
     >
       <Navbar />
       <div className="relative isolate px-6 pt-14 lg:px-8">

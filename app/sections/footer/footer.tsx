@@ -1,5 +1,5 @@
-import { MAIN_NAVIGATION } from "@/global-constants";
 import { JSX, SVGProps } from "react";
+import { COMPANY_NAME, MAIN_NAVIGATION } from "@/global-constants";
 
 type IconType = JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>;
 
@@ -100,8 +100,7 @@ export default function FooterSection() {
           ))}
         </div>
         <p className="mt-10 text-center text-sm/6 text-gray-600 dark:text-gray-400">
-          &copy; {new Date().getFullYear()} Your Company, Inc. All rights
-          reserved.
+          &copy; {new Date().getFullYear()} {COMPANY_NAME}. All rights reserved.
         </p>
       </div>
     </footer>

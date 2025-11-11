@@ -57,7 +57,7 @@ const Wave: React.FC = () => {
       80,
       cachedWidth / cachedHeight,
       0.1,
-      1000
+      1000,
     );
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(cachedWidth, cachedHeight);
@@ -90,7 +90,7 @@ const Wave: React.FC = () => {
     geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
     geometry.setAttribute(
       "originalPosition",
-      new THREE.BufferAttribute(originalPositions, 3)
+      new THREE.BufferAttribute(originalPositions, 3),
     );
 
     const material = new THREE.PointsMaterial({
@@ -160,7 +160,7 @@ const Wave: React.FC = () => {
     const clock = new THREE.Clock();
     const posAttr = geometry.getAttribute("position") as THREE.BufferAttribute;
     const origAttr = geometry.getAttribute(
-      "originalPosition"
+      "originalPosition",
     ) as THREE.BufferAttribute;
 
     // Bump precompute

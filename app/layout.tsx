@@ -27,9 +27,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth dark">
+    <html lang="en" className="dark scroll-smooth">
       <body
-        className={`${robotoSans.variable} ${robotoMono.variable} antialiased bg-white dark:bg-gray-900 text-gray-900 dark:text-white font-sans`}
+        className={`${robotoSans.variable} ${robotoMono.variable} bg-white font-sans text-gray-900 antialiased dark:bg-gray-900 dark:text-white`}
       >
         {children}
       </body>

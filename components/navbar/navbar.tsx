@@ -3,9 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Dialog, DialogPanel } from "@headlessui/react";
-import { Bars2Icon, CpuChipIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars2Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
-import { MAIN_NAVIGATION } from "@/global-constants";
+import { COMPANY_NAME, MAIN_NAVIGATION } from "@/global-constants";
 
 import Logo from "@/components/logo";
 
@@ -20,10 +20,10 @@ export default function Navbar() {
         <div className="flex lg:flex-1">
           <Link
             href="#hero"
-            className="-m-1.5 p-1.5 flex items-center gap-1 tracking-wide text-2xl text-gray-900 dark:text-white"
+            className="-m-1.5 flex items-center gap-1 p-1.5 text-2xl tracking-wide text-gray-900 dark:text-white"
           >
             <span className="sr-only">Realitize</span>
-            <CpuChipIcon className="size-8" strokeWidth={1.2} />
+            <Logo className="mt-1 size-10" />
             <span>
               <b>REAL</b>ITIZE
             </span>
@@ -65,12 +65,15 @@ export default function Navbar() {
         className="lg:hidden"
       >
         <div className="fixed inset-0 z-50" />
-        <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 dark:bg-gray-900 dark:sm:ring-gray-100/10">
+        <DialogPanel
+          transition
+          className="fixed inset-y-0 right-0 z-50 w-full transform overflow-y-auto bg-white p-6 transition duration-500 ease-in-out data-closed:translate-x-full sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 dark:bg-gray-900 dark:sm:ring-gray-100/10"
+        >
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
+            <Link href="#" className="-m-1.5 p-1.5">
+              <span className="sr-only">{COMPANY_NAME}</span>
               <Logo />
-            </a>
+            </Link>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
@@ -84,22 +87,24 @@ export default function Navbar() {
             <div className="-my-6 divide-y divide-gray-500/10 dark:divide-white/10">
               <div className="space-y-2 py-6">
                 {MAIN_NAVIGATION.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
                     href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
                     className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:bg-white/5"
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
               <div className="py-6">
-                <a
+                <Link
                   href="#contact"
+                  onClick={() => setMobileMenuOpen(false)}
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:bg-white/5"
                 >
                   Contact Us
-                </a>
+                </Link>
               </div>
             </div>
           </div>

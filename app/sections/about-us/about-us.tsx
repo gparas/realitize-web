@@ -30,7 +30,7 @@ export default function AboutUsSection() {
                 <feature.icon
                   aria-hidden="true"
                   strokeWidth={1.2}
-                  className="size-10 flex-none text-indigo-600 dark:text-indigo-400 mb-10"
+                  className="mb-10 size-10 flex-none text-indigo-600 dark:text-indigo-400"
                 />
                 <dt className="text-xl font-semibold text-gray-900 dark:text-white">
                   {feature.name}
