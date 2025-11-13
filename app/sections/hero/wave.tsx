@@ -45,8 +45,8 @@ const Wave: React.FC = () => {
 
     // --- SPHERICAL *DENT* (inverse of dome) ---
     const ENABLE_SPHERE_DENT = true;
-    const DENT_RADIUS = 2.5; // area of influence
-    const DENT_DEPTH = 0.9; // how deep the center dips below y=0
+    const DENT_RADIUS = 5; // area of influence
+    const DENT_DEPTH = 1.5; // how deep the center dips below y=0
     const DENT_STRENGTH = 0.95; // 0..1 blend toward the sphere
     const DENT_EASE = 0.12; // ease in/out speed
     // ------------------------------------------------------

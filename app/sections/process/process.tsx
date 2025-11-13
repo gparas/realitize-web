@@ -1,7 +1,7 @@
 "use client";
 
 import * as motion from "motion/react-client";
-import { TIMELINE_DATA } from "./constants";
+import FadeIn from "@/components/fade-in";
 import {
   dotVariants,
   lineVariants,
@@ -11,19 +11,20 @@ import {
   containerVariants,
   descriptionVariants,
 } from "./animation";
+import { TIMELINE_DATA } from "./constants";
 
 export default function ProcessSection() {
   return (
     <div id="process" className="bg-white py-24 sm:py-32 dark:bg-gray-900">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl lg:text-center">
+        <FadeIn className="mx-auto max-w-2xl lg:text-center">
           <h2 className="text-base/7 font-semibold text-indigo-600 dark:text-indigo-400">
             Process
           </h2>
           <p className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl lg:text-balance dark:text-white">
             A clear path from idea to impact.
           </p>
-        </div>
+        </FadeIn>
 
         <motion.div
           className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 overflow-hidden sm:mt-20 lg:mx-0 lg:mt-24 lg:max-w-none lg:grid-cols-4"

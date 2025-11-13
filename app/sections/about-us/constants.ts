@@ -2,28 +2,29 @@ import EyeIcon from "@/icons/eye";
 import LinkIcon from "@/icons/link";
 import ShieldIcon from "@/icons/shield";
 
-export const OVERLINE_TEXT = "Who we are";
-export const HEADING_TEXT = "A partner in responsible, practical AI adoption.";
+export const OVERLINE_TEXT = "About Us";
+export const HEADING_TEXT =
+  "Building a partnership in responsible and practical AI.";
 export const PARAGRAPH_TEXT =
-  "We help businesses move from exploring AI to using it effectively. We do this safely, strategically, and with complete transparency.";
+  "Our goal is to assist your business in implementing a strategic and custom AI, through the use of experts in the field. Creating a safe and completely transparent experience";
 
 export const FEATURES = [
   {
     name: "Security & Sovereignty",
     description:
-      "You have complete control over your data and models, ensuring control and flexibility at all times.",
+      "You retain complete control over your data and models. Ensuring security and flexibility at all times.",
     icon: ShieldIcon,
   },
   {
     name: "Clarity & Purpose",
     description:
-      "We focus on achieving specific business goals rather than adding unnecessary complexity.",
+      "We focus on streamlining and achieving specific business goals rather than adding unnecessary complexities.",
     icon: EyeIcon,
   },
   {
     name: "Long-Term Partnership",
     description:
-      "We inspire your organisation to adapt, evolve, and unlock enduring value that drives true success.",
+      "Our goal is to inspire your organisation assisting your evolution, adaptation and unlocking an enduring value.",
     icon: LinkIcon,
   },
 ];
