@@ -31,7 +31,7 @@ export default function AboutUsSection() {
                 <feature.icon
                   aria-hidden="true"
                   strokeWidth={1.2}
-                  className="mb-10 size-10 flex-none text-indigo-600 dark:text-indigo-400"
+                  className="mb-10 size-20 flex-none"
                 />
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                   {feature.name}
