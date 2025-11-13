@@ -40,7 +40,11 @@ def NeuroIntelligence_Malaria_Detector():
   model = Sequential()
 
   # First Convolutional layer
-  model.add(Conv2D(32, (3, 3), padding='same',input_shape=(64, 64, 3)))
+  model.add(
+    Conv2D(32, (3, 3),
+    padding='same',
+    input_shape=(64, 64, 3))
+  )
   model.add(LeakyReLU(alpha=0.1))
   model.add(BatchNormalization())
   model.add(MaxPooling2D(pool_size=(2, 2)))
@@ -89,7 +93,11 @@ def NeuroIntelligence_Malaria_Detector():
   model.add(Dense(2, activation='softmax'))
 
   # Compile the model
-  model.compile(loss='binary_crossentropy',optimizer=Adam(learning_rate=0.001), metrics=['accuracy'])
+  model.compile(
+    loss='binary_crossentropy',
+    optimizer=Adam(learning_rate=0.001),
+    metrics=['accuracy']
+  )
 
   return model
 `;

@@ -1,3 +1,4 @@
+import FadeIn from "@/components/fade-in";
 import {
   BuildingOffice2Icon,
   EnvelopeIcon,
@@ -6,7 +7,7 @@ import {
 
 export default function ContactSection() {
   return (
-    <div
+    <FadeIn
       id="contact"
       className="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8 dark:bg-gray-900"
     >
@@ -147,6 +148,6 @@ export default function ContactSection() {
           </form>
         </div>
       </div>
-    </div>
+    </FadeIn>
   );
 }
