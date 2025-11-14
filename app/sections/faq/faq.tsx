@@ -10,9 +10,9 @@ import FadeIn from "@/components/fade-in";
 
 export default function FaqSection() {
   return (
-    <FadeIn id="faq" className="bg-white dark:bg-gray-900">
+    <section id="faq" className="bg-white dark:bg-gray-900">
       <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40">
-        <div className="mx-auto max-w-4xl">
+        <FadeIn className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">
             Frequently asked questions
           </h2>
@@ -52,8 +52,8 @@ export default function FaqSection() {
               </Disclosure>
             ))}
           </dl>
-        </div>
+        </FadeIn>
       </div>
-    </FadeIn>
+    </section>
   );
 }

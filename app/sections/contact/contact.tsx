@@ -3,13 +3,13 @@ import { BuildingOffice2Icon, EnvelopeIcon } from "@heroicons/react/24/outline";
 
 export default function ContactSection() {
   return (
-    <FadeIn
+    <section
       id="contact"
       className="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8 dark:bg-gray-900"
     >
       <div className="mx-auto max-w-xl lg:max-w-5xl">
         <div className="mt-16 flex flex-col gap-16 sm:gap-y-20 lg:flex-row">
-          <div className="lg:mt-6 lg:w-80 lg:flex-auto">
+          <FadeIn className="lg:mt-6 lg:w-80 lg:flex-auto">
             <h2 className="text-2xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl dark:text-white">
               Get in touch
             </h2>
@@ -52,82 +52,84 @@ export default function ContactSection() {
                 </dd>
               </div>
             </dl>
-          </div>
-          <form action="#" method="POST" className="lg:flex-auto">
-            <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-              <div>
-                <label
-                  htmlFor="first-name"
-                  className="block text-sm/6 font-semibold text-gray-900 dark:text-white"
-                >
-                  Name
-                </label>
-                <div className="mt-2.5">
-                  <input
-                    id="first-name"
-                    name="first-name"
-                    type="text"
-                    autoComplete="given-name"
-                    className="block w-full rounded-md bg-white px-3.5 py-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 backdrop-blur-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500"
-                  />
+          </FadeIn>
+          <FadeIn className="lg:flex-auto">
+            <form action="#" method="POST">
+              <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+                <div>
+                  <label
+                    htmlFor="first-name"
+                    className="block text-sm/6 font-semibold text-gray-900 dark:text-white"
+                  >
+                    Name
+                  </label>
+                  <div className="mt-2.5">
+                    <input
+                      id="first-name"
+                      name="first-name"
+                      type="text"
+                      autoComplete="given-name"
+                      className="block w-full rounded-md bg-white px-3.5 py-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 backdrop-blur-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label
+                    htmlFor="last-name"
+                    className="block text-sm/6 font-semibold text-gray-900 dark:text-white"
+                  >
+                    Email
+                  </label>
+                  <div className="mt-2.5">
+                    <input
+                      id="last-name"
+                      name="last-name"
+                      type="text"
+                      autoComplete="family-name"
+                      className="block w-full rounded-md bg-white px-3.5 py-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 backdrop-blur-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500"
+                    />
+                  </div>
+                </div>
+                <div className="sm:col-span-2">
+                  <label
+                    htmlFor="message"
+                    className="block text-sm/6 font-semibold text-gray-900 dark:text-white"
+                  >
+                    Message
+                  </label>
+                  <div className="mt-2.5">
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows={4}
+                      className="block w-full rounded-md bg-white px-3.5 py-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 backdrop-blur-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500"
+                      defaultValue={""}
+                    />
+                  </div>
                 </div>
               </div>
-              <div>
-                <label
-                  htmlFor="last-name"
-                  className="block text-sm/6 font-semibold text-gray-900 dark:text-white"
+              <div className="mt-10">
+                <button
+                  type="submit"
+                  className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500"
                 >
-                  Email
-                </label>
-                <div className="mt-2.5">
-                  <input
-                    id="last-name"
-                    name="last-name"
-                    type="text"
-                    autoComplete="family-name"
-                    className="block w-full rounded-md bg-white px-3.5 py-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 backdrop-blur-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500"
-                  />
-                </div>
+                  Let’s talk
+                </button>
               </div>
-              <div className="sm:col-span-2">
-                <label
-                  htmlFor="message"
-                  className="block text-sm/6 font-semibold text-gray-900 dark:text-white"
+              <p className="mt-4 text-sm/6 text-gray-500 dark:text-gray-400">
+                By submitting this form, I agree to the{" "}
+                <a
+                  href="#"
+                  className="font-semibold whitespace-nowrap text-indigo-600 dark:text-indigo-400"
                 >
-                  Message
-                </label>
-                <div className="mt-2.5">
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={4}
-                    className="block w-full rounded-md bg-white px-3.5 py-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 backdrop-blur-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500"
-                    defaultValue={""}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="mt-10">
-              <button
-                type="submit"
-                className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500"
-              >
-                Let’s talk
-              </button>
-            </div>
-            <p className="mt-4 text-sm/6 text-gray-500 dark:text-gray-400">
-              By submitting this form, I agree to the{" "}
-              <a
-                href="#"
-                className="font-semibold whitespace-nowrap text-indigo-600 dark:text-indigo-400"
-              >
-                privacy policy
-              </a>
-              .
-            </p>
-          </form>
+                  privacy policy
+                </a>
+                .
+              </p>
+            </form>
+          </FadeIn>
         </div>
       </div>
-    </FadeIn>
+    </section>
   );
 }
