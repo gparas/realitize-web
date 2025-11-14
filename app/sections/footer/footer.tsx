@@ -100,7 +100,8 @@ export default function FooterSection() {
           ))}
         </div>
         <p className="mt-10 text-center text-sm/6 text-gray-600 dark:text-gray-400">
-          &copy; {new Date().getFullYear()} {COMPANY_NAME}. All rights reserved.
+          &copy; {new Date().getFullYear()} {COMPANY_NAME} Limited. All rights
+          reserved.
         </p>
       </div>
     </footer>

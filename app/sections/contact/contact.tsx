@@ -1,9 +1,5 @@
 import FadeIn from "@/components/fade-in";
-import {
-  BuildingOffice2Icon,
-  EnvelopeIcon,
-  PhoneIcon,
-} from "@heroicons/react/24/outline";
+import { BuildingOffice2Icon, EnvelopeIcon } from "@heroicons/react/24/outline";
 
 export default function ContactSection() {
   return (
@@ -14,13 +10,14 @@ export default function ContactSection() {
       <div className="mx-auto max-w-xl lg:max-w-5xl">
         <div className="mt-16 flex flex-col gap-16 sm:gap-y-20 lg:flex-row">
           <div className="lg:mt-6 lg:w-80 lg:flex-auto">
-            <h2 className="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl dark:text-white">
+            <h2 className="text-3xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl dark:text-white">
               Get in touch
             </h2>
             <p className="mt-6 text-lg/8 text-gray-600 dark:text-gray-400">
-              Proin volutpat consequat porttitor cras nullam gravida at. Orci
-              molestie a eu arcu. Sed ut tincidunt integer elementum id sem.
-              Arcu sed malesuada et magna.
+              Planning a project or looking for guidance? Our team is here to
+              help you take the first step toward intelligent automation.
+              Contact us through the form or by email and we’ll get back to you
+              promptly.
             </p>
             <dl className="mt-10 space-y-4 text-base/7 text-gray-600 dark:text-gray-300">
               <div className="flex gap-x-4">
@@ -32,26 +29,9 @@ export default function ContactSection() {
                   />
                 </dt>
                 <dd>
-                  545 Mavis Island
+                  Montague Sterling Centre,
                   <br />
-                  Chicago, IL 99191
-                </dd>
-              </div>
-              <div className="flex gap-x-4">
-                <dt className="flex-none">
-                  <span className="sr-only">Telephone</span>
-                  <PhoneIcon
-                    aria-hidden="true"
-                    className="h-7 w-6 text-gray-400"
-                  />
-                </dt>
-                <dd>
-                  <a
-                    href="tel:+1 (555) 234-5678"
-                    className="hover:text-gray-900 dark:hover:text-white"
-                  >
-                    +1 (555) 234-5678
-                  </a>
+                  P.O. Box N-3924, Nassau, Bahamas
                 </dd>
               </div>
               <div className="flex gap-x-4">
@@ -67,7 +47,7 @@ export default function ContactSection() {
                     href="mailto:hello@example.com"
                     className="hover:text-gray-900 dark:hover:text-white"
                   >
-                    hello@example.com
+                    info@realitize.ai
                   </a>
                 </dd>
               </div>

@@ -14,7 +14,7 @@ export default function AboutUsSection() {
           <h2 className="text-base/7 font-semibold text-indigo-600 dark:text-indigo-400">
             {OVERLINE_TEXT}
           </h2>
-          <p className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl lg:text-balance dark:text-white">
+          <p className="mt-2 text-3xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl lg:text-balance dark:text-white">
             {HEADING_TEXT}
           </p>
           <p className="mt-6 text-lg/8 text-gray-600 dark:text-gray-300">
@@ -31,7 +31,7 @@ export default function AboutUsSection() {
                 <feature.icon
                   aria-hidden="true"
                   strokeWidth={1.2}
-                  className="mb-10 size-20 flex-none"
+                  className="mb-10 size-10 flex-none text-indigo-600 dark:text-indigo-400"
                 />
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                   {feature.name}

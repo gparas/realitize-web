@@ -20,10 +20,12 @@ export default function Navbar() {
         <div className="flex lg:flex-1">
           <Link
             href="#hero"
-            className="-m-1.5 flex items-center gap-1 p-1.5 text-2xl tracking-wide text-gray-900 dark:text-white"
+            className="-m-1.5 flex items-center gap-3 p-1.5 text-2xl tracking-wide text-gray-900 dark:text-white"
           >
             <span className="sr-only">Realitize</span>
-            <Logo className="mt-1 size-10" />
+            <div className="flex size-10 items-center justify-center rounded-lg bg-indigo-600 dark:bg-indigo-500">
+              <Logo />
+            </div>
             <span>
               <b>REAL</b>ITIZE
             </span>
