@@ -1,10 +1,10 @@
-import HeroSection from "./sections/hero";
-import AboutUsSection from "./sections/about-us/about-us";
-import ProcessSection from "./sections/process";
-import ServicesSection from "./sections/services";
 import FaqSection from "./sections/faq";
+import HeroSection from "./sections/hero";
 import FooterSection from "./sections/footer";
 import ContactSection from "./sections/contact";
+import ProcessSection from "./sections/process";
+import ServicesSection from "./sections/services";
+import AboutUsSection from "./sections/about-us/about-us";
 
 export default function Home() {
   return (
@@ -14,8 +14,8 @@ export default function Home() {
         <AboutUsSection />
         <ProcessSection />
         <ServicesSection />
-        <ContactSection />
         <FaqSection />
+        <ContactSection />
       </main>
       <FooterSection />
     </>

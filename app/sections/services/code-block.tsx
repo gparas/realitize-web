@@ -39,7 +39,7 @@ export default function CodeBlock() {
               style={{ tabSize: 2 }}
               role="presentation"
               aria-hidden="true"
-              className="text-gray-300"
+              className="font-mono text-sm leading-6 text-gray-300"
             >
               {CODE_DEMO}
             </Typewriter>

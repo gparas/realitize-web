@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Roboto, Roboto_Mono } from "next/font/google";
+
+import ScrollTop from "@/components/scroll-top";
+
 import "./globals.css";
 
 const robotoSans = Roboto({
@@ -31,6 +34,7 @@ export default function RootLayout({
       <body
         className={`${robotoSans.variable} ${robotoMono.variable} bg-white font-sans text-gray-900 antialiased dark:bg-gray-900 dark:text-white`}
       >
+        <ScrollTop />
         {children}
       </body>
     </html>

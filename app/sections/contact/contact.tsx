@@ -10,7 +10,7 @@ export default function ContactSection() {
       <div className="mx-auto max-w-xl lg:max-w-5xl">
         <div className="mt-16 flex flex-col gap-16 sm:gap-y-20 lg:flex-row">
           <div className="lg:mt-6 lg:w-80 lg:flex-auto">
-            <h2 className="text-3xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl dark:text-white">
+            <h2 className="text-2xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl dark:text-white">
               Get in touch
             </h2>
             <p className="mt-6 text-lg/8 text-gray-600 dark:text-gray-400">

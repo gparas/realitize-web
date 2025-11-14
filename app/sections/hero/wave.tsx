@@ -118,8 +118,11 @@ const Wave: React.FC = () => {
     let dentMix = 0;
 
     const updateMouse = (clientX: number, clientY: number) => {
-      const x = ((clientX - cachedRect.left) / cachedRect.width) * 2 - 1;
-      const y = -((clientY - cachedRect.top) / cachedRect.height) * 2 + 1;
+      const rect = container.getBoundingClientRect(); // <— fresh every time
+
+      const x = ((clientX - rect.left) / rect.width) * 2 - 1;
+      const y = -((clientY - rect.top) / rect.height) * 2 + 1;
+
       mouseNDC.set(x, y);
       raycaster.setFromCamera(mouseNDC, camera);
       raycaster.ray.intersectPlane(groundPlane, mouseWorld);
@@ -290,6 +293,7 @@ const Wave: React.FC = () => {
   return (
     <div
       ref={mountRef}
+      className="select-none"
       style={{
         width: "100%",
         height: "100vh",

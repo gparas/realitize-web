@@ -21,7 +21,7 @@ export default function ProcessSection() {
           <h2 className="text-base/7 font-semibold text-indigo-600 dark:text-indigo-400">
             Process
           </h2>
-          <p className="mt-2 text-3xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl lg:text-balance dark:text-white">
+          <p className="mt-2 text-2xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl lg:text-balance dark:text-white">
             A clear path from idea to impact.
           </p>
         </FadeIn>
