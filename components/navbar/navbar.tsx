@@ -23,7 +23,7 @@ export default function Navbar() {
             className="-m-1.5 flex items-center gap-3 p-1.5 text-2xl tracking-wide text-gray-900 dark:text-white"
           >
             <span className="sr-only">Realitize</span>
-            <div className="flex size-10 items-center justify-center rounded-lg bg-indigo-600 dark:bg-indigo-500">
+            <div className="text-brand-400">
               <Logo />
             </div>
             <span>
@@ -55,7 +55,7 @@ export default function Navbar() {
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Link
             href="#contact"
-            className="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:shadow-none dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500"
+            className="hover:bg-brand-500 dark:bg-brand-500 dark:focus-visible:outline-brand-500 dark:hover:bg-brand-400 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:shadow-none"
           >
             Contact Us
           </Link>

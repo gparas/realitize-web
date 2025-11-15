@@ -9,7 +9,7 @@ export default function CodeBlock() {
   const ref = useRef(null);
   const isInView = useInView(ref);
   return (
-    <div className="relative isolate overflow-hidden bg-indigo-500 px-6 pt-8 sm:mx-auto sm:max-w-2xl sm:rounded-3xl sm:pt-16 sm:pr-0 sm:pl-16 lg:mx-0 lg:max-w-none">
+    <div className="bg-brand-500 relative isolate overflow-hidden px-6 pt-8 sm:mx-auto sm:max-w-2xl sm:rounded-3xl sm:pt-16 sm:pr-0 sm:pl-16 lg:mx-0 lg:max-w-none">
       <div
         role="presentation"
         aria-hidden="true"

@@ -18,7 +18,7 @@ export default function ServicesSection() {
           <div className="px-6 md:px-0 lg:pt-4 lg:pr-4">
             <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-lg">
               <FadeIn>
-                <h2 className="text-base/7 font-semibold text-indigo-600 dark:text-indigo-400">
+                <h2 className="dark:text-brand-400 text-base/7 font-semibold text-indigo-600">
                   {OVERLINE_TEXT}
                 </h2>
                 <p className="mt-2 text-2xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl dark:text-white">
@@ -34,7 +34,7 @@ export default function ServicesSection() {
                     <div className="inline font-semibold text-gray-900 dark:text-white">
                       <feature.icon
                         aria-hidden="true"
-                        className="absolute top-1 left-1 size-5 text-indigo-600 dark:text-indigo-400"
+                        className="dark:text-brand-400 absolute top-1 left-1 size-5 text-indigo-600"
                       />
                       <h3>{feature.name}</h3>
                     </div>{" "}

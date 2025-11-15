@@ -8,7 +8,7 @@ export default function ProcessSection() {
     <div id="process" className="bg-white py-24 sm:py-32 dark:bg-gray-900">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <FadeIn className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base/7 font-semibold text-indigo-600 dark:text-indigo-400">
+          <h2 className="dark:text-brand-400 text-base/7 font-semibold text-indigo-600">
             Process
           </h2>
           <p className="mt-2 text-2xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl lg:text-balance dark:text-white">
@@ -21,7 +21,7 @@ export default function ProcessSection() {
             <FadeIn key={item.name}>
               <time
                 dateTime={item.dateTime}
-                className="relative flex items-center text-sm/6 font-semibold text-indigo-600 dark:text-indigo-400"
+                className="dark:text-brand-400 relative flex items-center text-sm/6 font-semibold text-indigo-600"
               >
                 <svg
                   viewBox="0 0 4 4"
